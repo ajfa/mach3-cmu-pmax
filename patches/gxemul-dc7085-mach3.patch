@@ -1,0 +1,16 @@
+--- a/src/devices/dev_dc7085.c	2021-04-22 13:04:20.000000000 -0500
++++ b/src/devices/dev_dc7085.c	2026-09-15 17:40:59.360887371 -0600
+@@ -146,8 +146,11 @@
+ 		    rx and tx interrupts simultaneously, but Ultrix
+ 		    doesn't like that?  */
+ 
+-		if (d->regs.dc_csr & CSR_TRDY)
+-			return;
++		/*  Parche: no salir aqui, o la entrada de teclado nunca
++		    se procesa cuando el transmisor esta listo (Mach 3.0
++		    deja TRDY puesto y se queda esperando RDONE).  */
++		/* if (d->regs.dc_csr & CSR_TRDY)
++			return; */
+ 	}
+ 
+ 	lk201_tick(cpu->machine, &d->lk201);

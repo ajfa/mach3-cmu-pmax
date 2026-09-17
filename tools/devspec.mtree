@@ -1,0 +1,3 @@
+.               type=dir  mode=0755 uid=0 gid=0
+./dev           type=dir  mode=0755 uid=0 gid=0
+./dev/console   type=char mode=0666 uid=0 gid=0 device=native,0,0

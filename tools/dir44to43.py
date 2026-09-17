@@ -1,6 +1,6 @@
-"""Convierte las entradas de directorio de una imagen FFS v1 del formato 4.4
-(d_type + d_namlen de 8 bits) al de 4.3 (d_namlen de 16 bits), que es el que
-sabe leer el bootstrap de Mach 3.0."""
+"""Converts the directory entries of an FFS v1 image from the 4.4 layout
+(d_type plus an 8 bit d_namlen) to the 4.3 one (a 16 bit d_namlen), which is
+what the Mach 3.0 bootstrap knows how to read."""
 import struct, sys
 
 img = sys.argv[1]

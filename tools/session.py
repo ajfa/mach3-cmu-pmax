@@ -1,6 +1,6 @@
-"""Arranca el sistema y teclea varias ordenes como lo haria una persona.
+"""Boots the system and types a series of commands the way a person would.
 
-   uso: sesion.py <img> <log> <tope_s> <t_primera_s> <orden> [orden...]
+   usage: session.py <img> <log> <limit_s> <first_s> <command> [command...]
 """
 import os, pty, select, sys, time
 
@@ -24,7 +24,7 @@ if pid == 0:
     os.dup2(ferr, 2)
     os.execv(cmd[0], cmd)
 
-# una tecla cada 200 ms, 4 s de respiro entre ordenes
+# one key every 200 ms, four seconds between commands
 cola = []
 for o in ordenes:
     cola.extend([(c, 0.2) for c in o.encode()])
@@ -57,4 +57,4 @@ try:
     os.kill(pid, 9)
 except Exception:
     pass
-print("salida %d bytes, %d/%d teclas" % (len(sal), i, len(cola)))
+print("output %d bytes, %d/%d keys" % (len(sal), i, len(cola)))

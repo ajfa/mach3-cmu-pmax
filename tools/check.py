@@ -1,8 +1,8 @@
-"""Verificacion del pack: arranca el sistema, teclea ordenes como una persona
-y comprueba que el huesped las ejecuta de verdad.
+"""Checks the package: boots the system, types commands the way a person would
+and verifies that the guest really runs them.
 
-No basta con que el emulador hable: hay que ver salida que solo pueda haber
-producido un programa corriendo dentro del sistema.
+It is not enough for the emulator to talk: the output has to be something only
+a program running inside the system could have produced.
 
    uso: check.py <gxemul> <kernel> <disco>
 """
@@ -22,9 +22,9 @@ PARCHES = [
     "-c", "put w 0x800810fc, 0",
 ]
 
-TOPE = 210.0          # margen amplio: la VM del usuario es mas lenta que WSL
+TOPE = 210.0          # generous: a virtual machine is slower than this one
 ESPERA_ARRANQUE = 45.0
-RITMO = 0.2           # una tecla cada 200 ms, como teclea una persona
+RITMO = 0.2           # one key every 200 ms, the speed a person types at
 PAUSA = 6.0           # entre ordenes
 
 ORDENES = ["echo abracadabra", "ls /"]
@@ -84,18 +84,18 @@ def main():
     fallos = []
 
     if "POE 10.1.0" not in texto:
-        fallos.append("el servidor POE no llego a arrancar")
+        fallos.append("the POE server never started")
 
-    # El tty hace eco de lo tecleado, asi que la palabra aparece una vez por el
-    # eco.  Una segunda aparicion solo puede venir de /bin/echo ejecutandose.
+    # The tty echoes what is typed, so the word shows once from the echo.  A
+    # second occurrence can only come from /bin/echo actually running.
     veces = len(re.findall(r"abracadabra", texto))
     if veces < 2:
         fallos.append(
-            "/bin/echo no produjo salida (la palabra aparece %d vez/veces, "
-            "hacen falta 2: el eco del tty y la del programa)" % veces)
+            "/bin/echo produced no output (the word appears %d time(s), "
+            "2 are needed: the tty echo and the program's)" % veces)
 
     if "mach_servers" not in texto:
-        fallos.append("/bin/ls no listo el disco raiz")
+        fallos.append("/bin/ls did not list the root disk")
 
     print("-" * 68)
     if fallos:
@@ -103,15 +103,15 @@ def main():
         for f in fallos:
             print("  - " + f)
         print("-" * 68)
-        print("Ultimas lineas de la consola:")
+        print("Last lines from the console:")
         for linea in texto.strip().split("\n")[-12:]:
             print("  | " + linea)
         return 1
 
     print("VERIFICACION EN VERDE")
-    print("  - el microkernel Mach 3.0 arranca y carga el servidor POE 10.1.0")
-    print("  - el shell acepta ordenes tecleadas por la consola serie")
-    print("  - /bin/echo y /bin/ls se ejecutan y devuelven su salida")
+    print("  - the Mach 3.0 microkernel boots and loads the POE 10.1.0 server")
+    print("  - the shell takes commands typed at the serial console")
+    print("  - /bin/echo and /bin/ls run and return their output")
     print("-" * 68)
     return 0
 

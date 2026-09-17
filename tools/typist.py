@@ -18,7 +18,7 @@ while time.time() - t0 < tope:
         if not d: break
         sal += d
     if time.time() - ultimo_envio > 1.0:
-        os.write(fd, b'\r')          # una tecla por segundo, desde el principio
+        os.write(fd, b'\r')          # one key a second, from the start
         ultimo_envio = time.time()
 open(log,'wb').write(bytes(sal))
 try: os.kill(pid,9)

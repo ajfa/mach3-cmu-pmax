@@ -1,6 +1,6 @@
 /*
- * Init minimo para POE: abre la consola, deja los descriptores 0,1,2
- * apuntando a ella y ejecuta el shell.  Equivale a lo que hace minit.c,
+ * A minimal init for POE: opens the console, points descriptors 0, 1 and 2
+ * at it and execs the shell.  The same thing minit.c does,
  * sin necesitar libc.
  */
 	.text

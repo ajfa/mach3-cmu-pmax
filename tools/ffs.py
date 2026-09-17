@@ -43,7 +43,7 @@ class FFS:
             if reclen < 12: break
             namlen = d[o+7] if d[o+6] else d[o+6] | (d[o+7] << 8)
             if d[o+6] and d[o+7] == 0: namlen = d[o+6]
-            namlen = max(d[o+6], d[o+7])            # vale para 4.3 y 4.4
+            namlen = max(d[o+6], d[o+7])            # works for both 4.3 and 4.4
             nombre = d[o+8:o+8+namlen].decode("latin1")
             if i: res.append((nombre, i))
             o += reclen
@@ -70,4 +70,4 @@ if __name__ == "__main__":
     else:
         d,sz = fs.datos(ino)
         if len(sys.argv) > 3: open(sys.argv[3],"wb").write(d); print("extraido", sz, "bytes")
-        else: print("fichero de", sz, "bytes")
+        else: print("file of", sz, "bytes")

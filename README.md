@@ -100,13 +100,22 @@ including the real point of failure.
 
     run.sh                              builds the emulator if needed and boots
     patches/gxemul-dc7085-mach3.patch   the serial fix, against GXemul 0.7.0
+    tools/build-disk.sh                 builds the disk image end to end
+    tools/rebuild-poe.sh                recompiles POE and relinks the server
+    tools/screenshot.sh                 boots with a window and captures the screen
+    tools/measure-writes.sh             measures what a session leaves behind
     tools/check.py                      automated verification, no window
     tools/ffs.py                        reads the 4.3 filesystem from the host
     tools/dir44to43.py                  converts directories from 4.4 to 4.3
     tools/devspec.mtree                 the device nodes for makefs
     tools/init.s                        a minimal init: open the console, dup, exec sh
     tools/ddb.py                        drives the kernel debugger
-    tools/teclear.py, tools/sesion.py   type at the guest at human speed
+    tools/session.py, tools/typist.py   type at the guest at human speed
+
+`tools/build-disk.sh` is the whole disk recipe in one place: it points `init.s` at
+the program to exec, assembles and links it with the cross toolchain, copies the
+server into `mach_servers`, runs `makefs` for a 96 MB FFS v1 little endian image,
+writes the DEC label, and converts the directories.
 
 ## What is not here
 
